@@ -1,5 +1,6 @@
 require 'slack-ruby-bot'
 require 'slack-fuzzybot/bot'
+require 'slack-fuzzybot/language_parser'
 require 'slack-fuzzybot/commands/fuzzytime'
 
 SlackRubyBot.configure do |config|

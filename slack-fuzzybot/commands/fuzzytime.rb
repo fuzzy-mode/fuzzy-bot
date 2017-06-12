@@ -23,7 +23,7 @@ module SlackFuzzybot
       end
 
       def self.get_fuzzytime(input)
-        entities = GoogleParser.new(input).entities
+        entities = LanguageParser.new(input).entities
         acceptable_entities = %i[LOCATION WORK_OF_ART]
         rejected_entities = [:OTHER]
         location_phrase = entities.reject { |e| rejected_entities.include?(e.type) }.map(&:name).join(', ') if (entities.map(&:type) & acceptable_entities).any?
@@ -53,28 +53,5 @@ module SlackFuzzybot
       end
     end
 
-    class GoogleParser
-      def initialize(message)
-        @document = language_client.document message
-      end
-
-      def entities
-        @document.entities
-      end
-
-      def sentiment
-        @document.sentiment
-      end
-
-      def syntax
-        @document.syntax
-      end
-
-      private
-
-      def language_client
-        @language_client ||= Google::Cloud::Language.new project: ENV['GOOGLE_CLOUD_PLATFORM_PROJECT_ID']
-      end
-    end
   end
 end
