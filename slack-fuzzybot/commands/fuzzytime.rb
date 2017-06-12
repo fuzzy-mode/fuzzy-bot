@@ -16,15 +16,17 @@ module SlackFuzzybot
               pretext: fuzzytime[:pretext],
               title: fuzzytime[:time],
               text: fuzzytime[:text],
-              mrkdwn_in: ['text','title']
+              mrkdwn_in: %w[text title]
             }
           ].compact.to_json
         )
       end
 
       def self.get_fuzzytime(input)
-        entities = GoogleParser.new(input).document.entities
-        location_phrase = entities.map(&:name).join(', ') if (entities.map(&:type) & %i[LOCATION WORK_OF_ART]).any?
+        entities = GoogleParser.new(input).entities
+        acceptable_entities = %i[LOCATION WORK_OF_ART]
+        rejected_entities = [:OTHER]
+        location_phrase = entities.reject { |e| rejected_entities.include?(e.type) }.map(&:name).join(', ') if (entities.map(&:type) & acceptable_entities).any?
         return { pretext: 'I couldnt find any locations in your request' } if location_phrase.nil? || location_phrase.empty?
 
         location = Geocoder.search(location_phrase).first
@@ -45,16 +47,19 @@ module SlackFuzzybot
         }
       rescue => e
         {
-          pretext: "Something went terribly wrong:",
+          pretext: 'Something went terribly wrong:',
           text: e
         }
       end
     end
 
     class GoogleParser
-      attr_accessor :document
       def initialize(message)
         @document = language_client.document message
+      end
+
+      def entities
+        @document.entities
       end
 
       def sentiment
