@@ -14,3 +14,5 @@ COPY slack-fuzzybot /usr/src/app/slack-fuzzybot
 COPY web.rb /usr/src/app
 
 CMD ["bundle", "exec", "foreman", "start"]
+
+EXPOSE 5000
