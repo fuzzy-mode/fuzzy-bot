@@ -29,7 +29,7 @@ module SlackFuzzybot
         location_phrase = entities.reject { |e| rejected_entities.include?(e.type) }.map(&:name).join(', ') if (entities.map(&:type) & acceptable_entities).any?
         if location_phrase.nil? || location_phrase.empty?
           fuzzytime_request = RestClient.get(ENV['FUZZYTIME_API_URL'], params: { timezone: user_timezone })
-          return { text: "Your fuzzy time is *#{fuzzytime_request}*" }
+          return { text: "The fuzzy time is *#{fuzzytime_request}*" }
         end
 
         location = Geocoder.search(location_phrase).first
