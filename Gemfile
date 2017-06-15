@@ -10,6 +10,7 @@ gem 'rest-client'
 gem 'google-cloud-language'
 gem 'timezone'
 gem 'geocoder'
+gem 'forecast_io'
 
 group :development, :test do
   gem 'rake'
