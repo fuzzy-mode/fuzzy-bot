@@ -15,6 +15,8 @@ gem 'forecast_io'
 group :development, :test do
   gem 'rake'
   gem 'foreman'
+  gem 'guard'
+  gem 'guard-ruby'
 end
 
 group :test do
