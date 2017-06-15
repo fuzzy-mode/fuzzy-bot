@@ -11,6 +11,7 @@ COPY Procfile /usr/src/app
 COPY config.ru /usr/src/app
 COPY slack-fuzzybot.rb /usr/src/app
 COPY slack-fuzzybot /usr/src/app/slack-fuzzybot
+COPY common-snail /usr/src/app/common-snail
 COPY web.rb /usr/src/app
 
 CMD ["bundle", "exec", "foreman", "start"]
