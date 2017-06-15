@@ -3,7 +3,10 @@ module SlackFuzzybot
     class Snail < SlackRubyBot::Commands::Base
 
       command 'snail' do |client, data, match|
-        message = CommonSnail::Scene.new.generate(match[:expression])
+        args = match[:expression].split(' ') rescue []
+        scene = args[0] || 'beach'
+        weather = args[1] || 'clear-day'
+        message = CommonSnail::Scene.new.generate(scene,weather)
         client.say(channel: data.channel, text: message)
       end
 
