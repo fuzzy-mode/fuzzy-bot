@@ -1,3 +1,5 @@
+require 'forecast_io'
+
 module SlackFuzzybot
   module Commands
     class Weather < SlackRubyBot::Commands::Base
