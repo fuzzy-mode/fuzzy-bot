@@ -1,6 +1,7 @@
 require 'slack-ruby-bot'
 require 'slack-fuzzybot/bot'
 require 'slack-fuzzybot/language_parser'
+require 'slack-fuzzybot/commands/help'
 require 'slack-fuzzybot/commands/fuzzytime'
 require 'slack-fuzzybot/commands/snail'
 require 'slack-fuzzybot/commands/weather'

@@ -3,9 +3,18 @@ require 'forecast_io'
 module SlackFuzzybot
   module Commands
     class Weather < SlackRubyBot::Commands::Base
+      help do
+        title 'weatherman'
+        desc 'Tells you the weather'
+        long_desc 'Tells you the current coniditions for a location'
+        command 'weatherman' do
+          desc 'Current conditions'
+        end
+      end
 
       command 'weatherman' do |client, data, match|
-        message = process_request(match[:expression])
+        location = match[:expression] || ENV['DEFAULT_LOCATION']
+        message = process_request(location)
         client.web_client.chat_postMessage(
           channel: data.channel,
           as_user: true,

@@ -1,6 +1,11 @@
 module SlackFuzzybot
   module Commands
     class Snail < SlackRubyBot::Commands::Base
+      help do
+        title 'snail'
+        desc 'Common Snail'
+        long_desc 'Updates you with common snails adventures'
+      end
 
       command 'snail' do |client, data, match|
         args = match[:expression].split(' ') rescue []

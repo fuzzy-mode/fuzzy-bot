@@ -6,7 +6,15 @@ require 'geocoder'
 module SlackFuzzybot
   module Commands
     class Fuzzytime < SlackRubyBot::Commands::Base
-      match /.*fuzzy ?time.*/i do |client, data, match|
+      help do
+        title 'fuzzytime'
+        desc 'Tells you the fuzzy time'
+        long_desc 'Tells you the fuzzy time'
+      end
+
+      match /.*fuzzy ?time.*/i 
+
+      def self.call client, data, match
         user_timezone = client.web_client.users_info(user: data.user).user['tz']
         fuzzytime_request = get_fuzzytime(match, user_timezone)
         client.web_client.chat_postMessage(
