@@ -1,8 +1,13 @@
 version: '3'
 services:
-  web:
+  bot:
     build: .
-    command: bundle exec foreman start
     env_file: .env
+    links:
+      - db
     ports:
-      - '5000:5000'
+      - "9292:9292"
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"

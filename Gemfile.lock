@@ -1,13 +1,38 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.1.1)
+    actionpack (5.0.4)
+      actionview (= 5.0.4)
+      activesupport (= 5.0.4)
+      rack (~> 2.0)
+      rack-test (~> 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (5.0.4)
+      activesupport (= 5.0.4)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    activemodel (5.0.4)
+      activesupport (= 5.0.4)
+    activerecord (5.0.4)
+      activemodel (= 5.0.4)
+      activesupport (= 5.0.4)
+      arel (~> 7.0)
+    activesupport (5.0.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    arel (7.1.4)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    builder (3.2.3)
     celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
@@ -30,13 +55,25 @@ GEM
     celluloid-supervision (0.20.6)
       timers (>= 4.1.1)
     coderay (1.1.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
+    database_cleaner (1.6.1)
+    declarative (0.0.9)
+    declarative-option (0.1.0)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
+    equalizer (0.0.11)
+    erubis (2.7.0)
+    fabrication (2.16.1)
+    faker (1.7.3)
+      i18n (~> 0.5)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.11.0.1)
@@ -77,6 +114,21 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    grape (0.19.2)
+      activesupport
+      builder
+      hashie (>= 2.1.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      mustermann-grape (~> 1.0.0)
+      rack (>= 1.3.0)
+      rack-accept
+      virtus (>= 1.0.0)
+    grape-roar (0.4.0)
+      grape
+      roar (~> 1.1.0)
+    grape-swagger (0.27.2)
+      grape (>= 0.16.2)
     grpc (1.3.4)
       google-protobuf (~> 3.1)
       googleauth (~> 0.5.1)
@@ -95,12 +147,20 @@ GEM
       guard-compat (~> 1.1)
     hashdiff (0.3.4)
     hashie (3.5.5)
+    hashie-forbidden_attributes (0.1.1)
+      hashie (>= 3.0)
     hitimes (1.2.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.4)
+    ice_nine (0.11.2)
     json (2.1.0)
     jwt (1.5.6)
+    kaminari-core (1.0.1)
+    kaminari-grape (1.0.1)
+      grape
+      kaminari-core (~> 1.0)
+    kgio (2.11.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -109,43 +169,76 @@ GEM
     logging (2.2.2)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
+    loofah (2.0.3)
+      nokogiri (>= 1.5.9)
     lumberjack (1.0.12)
-    memoist (0.15.0)
+    memoist (0.16.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustermann (1.0.0)
+    mustermann-grape (1.0.0)
+      mustermann (~> 1.0.0)
     nenv (0.3.0)
     netrc (0.11.0)
     nio4r (2.1.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
     os (0.9.6)
+    otr-activerecord (1.2.1)
+      activerecord (>= 4.0, < 5.1)
+      hashie-forbidden_attributes (~> 0.1)
+    pg (0.21.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
-    puma (3.9.1)
     rack (2.0.3)
-    rack-protection (2.0.0)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
+    rack-cors (0.4.1)
+    rack-rewrite (1.5.1)
+    rack-server-pages (0.1.0)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rails-dom-testing (2.0.3)
+      activesupport (>= 4.2.0)
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.0.3)
+      loofah (~> 2.0)
+    railties (5.0.4)
+      actionpack (= 5.0.4)
+      activesupport (= 5.0.4)
+      method_source
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    raindrops (0.18.0)
     rake (12.0.0)
     rb-fsevent (0.9.8)
-    rb-inotify (0.9.8)
-      ffi (>= 0.5.0)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rly (0.2.3)
+    roar (1.1.0)
+      representable (~> 3.0.0)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -167,14 +260,21 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
-    sinatra (2.0.0)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.0)
-      tilt (~> 2.0)
-    slack-ruby-bot (0.10.2)
+    slack-ruby-bot (0.10.3)
       hashie
       slack-ruby-client (>= 0.6.0)
+    slack-ruby-bot-server (0.6.1)
+      celluloid-io
+      foreman
+      grape
+      grape-roar (>= 0.4.0)
+      grape-swagger
+      kaminari-grape
+      rack-cors
+      rack-rewrite
+      rack-server-pages
+      slack-ruby-bot
+      unicorn
     slack-ruby-client (0.8.1)
       activesupport
       faraday (>= 0.9)
@@ -184,18 +284,30 @@ GEM
       json
       websocket-driver
     slop (3.6.0)
+    standalone_migrations (5.2.3)
+      activerecord (>= 4.2.7, < 5.2.0)
+      railties (>= 4.2.7, < 5.2.0)
+      rake (>= 10.0)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.7)
     timers (4.1.2)
       hitimes
     timezone (1.2.7)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    uber (0.1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
+    unicorn (5.3.0)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     vcr (3.0.3)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     webmock (3.0.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -208,21 +320,25 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  celluloid-io
+  activerecord
+  database_cleaner
   dotenv
+  fabrication
+  faker
   forecast_io
-  foreman
   geocoder
   google-cloud-language
   guard
   guard-ruby
-  puma
+  otr-activerecord
+  pg
+  rack-server-pages
   rack-test
   rake
   rest-client
   rspec
-  sinatra
-  slack-ruby-bot
+  slack-ruby-bot-server
+  standalone_migrations
   timezone
   vcr
   webmock

@@ -3,7 +3,7 @@ module CommonSnail
 
     def initialize(sprite)
       @sprite = sprite
-      file = File.read('common-snail/tiles.json')
+      file = File.read('lib/common_snail/tiles.json')
       @tiles = JSON.parse(file)["landscapes"]
     end
 

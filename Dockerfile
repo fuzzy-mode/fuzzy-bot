@@ -3,17 +3,18 @@ FROM ruby:2.4.1
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY Gemfile /usr/src/app
-COPY Gemfile.lock /usr/src/app
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
-COPY Procfile /usr/src/app
-COPY config.ru /usr/src/app
-COPY slack-fuzzybot.rb /usr/src/app
-COPY slack-fuzzybot /usr/src/app/slack-fuzzybot
-COPY common-snail /usr/src/app/common-snail
-COPY web.rb /usr/src/app
+COPY Procfile Procfile
+COPY Rakefile Rakefile
+COPY config.ru config.ru
+COPY .standalone_migrations .standalone_migrations
+COPY lib lib
+COPY db db
+COPY config config
+COPY commands.rb commands.rb
+COPY commands commands
 
 CMD ["bundle", "exec", "foreman", "start"]
-
-EXPOSE 5000

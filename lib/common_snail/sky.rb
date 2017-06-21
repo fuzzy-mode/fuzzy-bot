@@ -1,7 +1,7 @@
 module CommonSnail
   class Sky
     def initialize
-      file = File.read('common-snail/tiles.json')
+      file = File.read('lib/common_snail/tiles.json')
       @tiles = JSON.parse(file)["sky"]
     end
 

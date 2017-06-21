@@ -1,21 +1,22 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+ENV['RACK_ENV'] ||= 'development'
+
+Bundler.require :default
 
 require 'dotenv'
+require 'yaml'
+require 'forecast_io'
+require_relative 'commands'
 Dotenv.load
 
-require 'slack-fuzzybot'
-require 'web'
+ActiveRecord::Base.establish_connection(YAML.load_file('config/postgresql.yml')[ENV['RACK_ENV']])
 
-Thread.abort_on_exception = true
-
-Thread.new do
-  begin
-    SlackFuzzybot::Bot.run
-  rescue Exception => e
-    STDERR.puts "ERROR: #{e}"
-    STDERR.puts e.backtrace
-    raise e
-  end
+SlackRubyBotServer.configure do |config|
+  Timezone::Lookup.config(:google) { |c| c.api_key = ENV['GOOGLE_MAPS_TIMEZONE_API_KEY'] }
+  Geocoder.configure(lookup: :google_places_search, api_key: ENV['GOOGLE_MAPS_API_KEY'], use_https: true)
+  ForecastIO.api_key = ENV['FORECAST_IO_API_KEY']
 end
 
-run SlackFuzzybot::Web
+SlackRubyBotServer::App.instance.prepare!
+SlackRubyBotServer::Service.start!
+
+run SlackRubyBotServer::Api::Middleware.instance
