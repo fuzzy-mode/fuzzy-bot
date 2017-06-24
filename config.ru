@@ -5,7 +5,9 @@ Bundler.require :default
 require 'dotenv'
 require 'yaml'
 require 'forecast_io'
-require_relative 'commands'
+
+require_relative 'fuzzy_bot/app'
+
 Dotenv.load
 
 ActiveRecord::Base.establish_connection(YAML.load_file('config/postgresql.yml')[ENV['RACK_ENV']])
@@ -16,7 +18,8 @@ SlackRubyBotServer.configure do |config|
   ForecastIO.api_key = ENV['FORECAST_IO_API_KEY']
 end
 
-SlackRubyBotServer::App.instance.prepare!
+FuzzyBot::App.instance.prepare!
+
 SlackRubyBotServer::Service.start!
 
 run SlackRubyBotServer::Api::Middleware.instance

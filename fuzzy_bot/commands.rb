@@ -1,5 +1,5 @@
-require_relative 'lib/language_parser'
-require_relative 'lib/common_snail/scene'
+require_relative '../lib/language_parser'
+require_relative '../lib/common_snail/scene'
 
 require_relative 'commands/help'
 require_relative 'commands/fuzzytime'
